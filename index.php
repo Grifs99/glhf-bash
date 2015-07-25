@@ -1,6 +1,24 @@
 <?php
 include("src/Bash.php");
-$bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/master/bash");
+include("src/Database.php");
+
+//I don't know how to make pretty code :(
+
+$bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/master/bash.json");
+$db = new Database();
+$entries = $bash->process();
+
+//Checks if there have been new entries in JSON file.
+$lastModified = $entries['lastModified'];
+if ($db->lastSave()!=$lastModified){
+    foreach ($entries['entries'] as $entrie) {
+        $db->saveEntrie($entrie);
+    }
+    $db->updateLastSave($lastModified,$db->lastSave());
+}
+
+//Fetches all entries from DB
+$content = $db->getEntries();
 ?>
 <!doctype html>
     <head>
@@ -17,16 +35,23 @@ $bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/mast
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-                <?php foreach ($bash->split() as $row): ?>
-            <div class="row">
-            <?php if($row === ""): ?>
+            <?php foreach ($content as $row): ?>
+                <div class="row">
                 <div class="col-sm-12 space"></div>
-            <?php else: ?>
+                </div>
+                <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-6"><?php echo $row ?></div>
+                <div class="col-sm-6"><?php echo $row['date']; ?></div>
                 <div class="col-sm-2"></div>
-            <?php endif ?>
-            </div>
+                </div>
+                <?php $texts = explode('\\n', $row['text']);
+                foreach ($texts as $text): ?>
+                    <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-6"><?php echo $bash->makeLinks($text); ?></div>
+                    <div class="col-sm-2"></div>
+                    </div>
+                <?php endforeach ?>   
         <?php endforeach ?>
         </div>
     </body>
