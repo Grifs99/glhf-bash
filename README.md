@@ -6,4 +6,6 @@ Some things may seem redundant or flat out wrong - that's ok, we're having fun d
 
 ## Install
 First, execute install.php
+
 Note: Check if you have enough permissions to create file in src folder
+
