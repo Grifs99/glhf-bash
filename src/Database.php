@@ -5,9 +5,6 @@ class Database
   private $conn;
 
   public function __construct(){
- 
-    //include_once('DatabaseConfig.php');
-
     // Create (connect to) SQLite database in file
     $this->conn = new PDO('sqlite:src/db.sqlite3');
 
