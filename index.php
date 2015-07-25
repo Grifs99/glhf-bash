@@ -3,6 +3,7 @@ include("src/Bash.php");
 include("src/Database.php");
 
 //I don't know how to make pretty code :(
+//Don't worry - me too :P
 
 $bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/master/bash.json");
 $db = new Database();
