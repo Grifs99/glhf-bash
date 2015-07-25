@@ -13,8 +13,8 @@ $entries = $bash->process();
 //Checks if there have been new entries in JSON file.
 $lastModified = $entries['lastModified'];
 if ($db->lastSave()!=$lastModified){
-    foreach ($entries['entries'] as $entrie) {
-        $db->saveEntrie($entrie);
+    foreach ($entries['entries'] as $entry) {
+        $db->saveEntrie($entry);
     }
     $db->updateLastSave($lastModified,$db->lastSave());
 }
