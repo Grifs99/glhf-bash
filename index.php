@@ -4,7 +4,8 @@ include("src/Database.php");
 
 //I don't know how to make pretty code :(
 
-$bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/master/bash.json");
+//$bash = new Bash("https://raw.githubusercontent.com/Cpt-ManlyPink/glhf-bash/master/bash.json");
+$bash = new Bash("bash.json");
 $db = new Database();
 $entries = $bash->process();
 
@@ -56,4 +57,3 @@ $content = $db->getEntries();
         </div>
     </body>
 </html>
-
